@@ -1,0 +1,2 @@
+setxkbmap -layout dk
+xmodmap -e "keycode 151 = XF86WakeUp" -e "add Mod5 = XF86WakeUp"

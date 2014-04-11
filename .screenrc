@@ -1,0 +1,4 @@
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{='
+
+escape ^Zz
