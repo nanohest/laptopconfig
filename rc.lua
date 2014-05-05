@@ -10,7 +10,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-
+-- Revelation - view and select one of all open clients
+local revelation = require("revelation")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -44,6 +45,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 -- This is used later as the default terminal and editor to run.
 terminal   = "terminator"
 editor     = "gvim" 
+filemgr    = "/home/kod/bin/filemgr"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -96,18 +98,19 @@ myawesomemenu = {
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart"    , awesome.restart                       },
    { "quit"       , awesome.quit                          },
-   { "reboot"     , terminal   .. " -e sudo reboot"       },
-   { "poweroff"   , terminal   .. " -e sudo poweroff"     }
+   { "reboot"     , terminal   .. " -e 'sudo reboot'"     },
+   { "poweroff"   , terminal   .. " -e 'sudo poweroff'"   }
 }
 
 mydbguimenu = {
-   { "pgadmin", "pgadmin3" },
+   { "pgadmin"      , "pgadmin3"     },
    { "sql developer", "sqldeveloper" }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "terminal"      ,  terminal                      },
                                     { "editor"        ,  editor                        },
+                                    { "file manager"  ,  filemgr                       },
                                     { "eclipse"       , "eclipse"                      },
                                     { "DB GUI" , mydbguimenu,   beautiful.awesome_icon },
                                     { "word processor", "abiword"                      },
@@ -304,6 +307,9 @@ globalkeys = awful.util.table.join(
     -- Lock screen
     awful.key({ modkey }, "l" , function () awful.util.spawn("slock") end), 
 
+    -- Revelation
+    awful.key({modkey}, "e", revelation),
+    
     -- Volume keys
     awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q sset Master 2dB-") end),
     awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q sset Master 2dB+") end)
